@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package account;
+
+import "google/rpc/code.proto";
+
+option java_package = "com.allinfinance.grpc.demo";
+option java_outer_classname = "AccountProto";
+option java_multiple_files = false;
+
+// 账户查询请求
+message QueryRequest {
+    // 请求流水号
+    string serialNo = 1;
+    // 用户ID
+    string userId = 2;
+}
+
+// 账户查询响应
+message QueryResponse {
+    // 返回码
+    google.rpc.Code code = 1;
+    // 请求流水号
+    string serialNo = 2;
+    // 返回消息
+    string msg = 3;
+    // 金额
+    double amount = 4;
+}
+
+// 账户添加请求
+message AddRequest {
+    // 请求流水号
+    string serialNo = 1;
+    // 用户ID
+    string userId = 2;
+    // 用户名
+    string userName = 3;
+    // 金额
+    double amount = 4;
+}
+
+// 账户添加响应
+message AddResponse {
+    // 返回码
+    google.rpc.Code code = 1;
+    // 请求流水号
+    string serialNo = 2;
+    // 返回消息
+    string msg = 3;
+    // 添加账户的数量
+    int32 count = 4;
+}
+
+// 账户服务
+service AccountService {
+
+    // gRPC 同时支持同步 RPC 和异步 RPC。
+    // 同步 RPC 调用服务方法只支持流式 RPC（Server-streaming RPCs）和一元RPC(Unary RPCs)。异步RPC调用服务方法支持4种方法。
+
+    // 查询账户
+    //
+    // 简单模式：客户端发送一个请求，服务端返回一个结果。
+    // 一个请求对象对应一个返回对象。
+    rpc query (QueryRequest) returns (QueryResponse);
+
+    // 查询账户列表
+    //
+    // 服务端流式：客户端发送一个请求，服务端返回一个流给客户端，客户端从流中读取一系列消息，直到读取所有信息。
+    // 一个请求对象，服务端可以传回多个结果对象。
+    rpc queryServerStreaming (QueryRequest) returns (stream QueryResponse);
+
+    // 添加账户列表
+    //
+    // 客户端流式：客户端通过流向服务端发送一系列消息，然后等待服务端读取完数据并返回处理结果。
+    // 客户端传入多个请求对象，服务端返回一个响应结果。
+    rpc addClientStreaming (stream AddRequest) returns (AddResponse);
+
+    // 查询账户
+    //
+    // 双向流式：客户端和服务端都可以独立向对方发送或接受一系列的消息。客户端和服务端读写的顺序是任意。
+    // 结合客户端流式RPC和服务端流式RPC，可以传入多个对象，返回多个响应对象。
+    rpc queryBidiStreaming (stream QueryRequest) returns (stream QueryResponse);
+
+}

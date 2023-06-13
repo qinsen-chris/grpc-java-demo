@@ -1,0 +1,32 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+/target*/
+/classes/
+
+### IntelliJ IDEA ###
+*.iml
+/.idea/*
+!/.idea/copyright
+!/.idea/scopes
+
+### Eclipse (STS) ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# Visual Studio Code
+/.vscode
+
+# Other Files
+/doc/
+/logs/
+/*_IS_UNDEFINED/
+/out/
