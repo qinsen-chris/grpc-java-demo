@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package yak;
+
+import "google/protobuf/wrappers.proto";
+
+option java_package = "com.allinfinance.grpc.demo";
+option java_outer_classname = "YakMessageProto";
+option java_multiple_files = false;
+
+// 请求
+message YakMessage {
+    string rawMessage = 1;
+    bool isHeartBeat = 2;
+    string srcChannelId =3;
+    bool isRequest = 4;
+    bool isInComing = 5;
+    map<int32,string> bodyAttributes = 6;
+}
+
+
+

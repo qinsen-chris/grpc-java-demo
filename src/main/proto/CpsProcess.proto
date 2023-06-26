@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package yak;
+
+import "YakMessage.proto";
+option java_package = "com.allinfinance.grpc.demo";
+option java_outer_classname = "CpsProcessProto";
+option java_multiple_files = false;
+
+// 请求
+message YakMessageRequest {
+    yak.YakMessage yakMessage = 1;
+}
+
+// 响应
+message YakMessageResponse {
+    yak.YakMessage yakMessage = 1;
+}
+
+service CpsProcessService {
+    rpc authorize(YakMessageRequest) returns (YakMessageResponse);
+}
+
+
+

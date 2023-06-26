@@ -10,6 +10,8 @@ package com.allinfinance.grpc.demo.account;
 import java.io.IOException;
 
 import com.allinfinance.grpc.demo.AccountServiceGrpc;
+import com.allinfinance.grpc.demo.CpsProcessServiceGrpc;
+import com.allinfinance.grpc.demo.yak.CpsProcessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +40,12 @@ public final class Server {
      */
     private void start(final int port) {
         AccountServiceGrpc.AccountServiceImplBase accountService = new AccountService();
+
+        CpsProcessServiceGrpc.CpsProcessServiceImplBase cpsProcessService = new CpsProcessService();
+
         this.server = ServerBuilder.forPort(port)
                 .addService(accountService.bindService())
+                .addService(cpsProcessService)
                 .build();
         try {
             this.server.start();
